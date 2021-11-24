@@ -2,7 +2,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+function Home({ip}) {
+console.log(ip)
   return (
     <div className={styles.container}>
       <Head>
@@ -67,3 +68,9 @@ export default function Home() {
     </div>
   )
 }
+Home.getInitialProps = async ({ req }) => {
+  const ip = req.headers["x-real-ip"] || req.connection.remoteAddress;
+  return { ip };
+};
+
+export default Home;
